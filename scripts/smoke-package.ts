@@ -6,8 +6,8 @@ import { fileURLToPath } from "node:url"
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..")
 const consumer = await mkdtemp(join(tmpdir(), "simulate-pcb-noise-consumer-"))
-async function run(command: string[], cwd: string) {
-  const result = Bun.spawnSync(command, { cwd, stdout: "pipe", stderr: "pipe", timeout: 60_000 })
+async function run(command: string[], cwd: string, timeout = 60_000) {
+  const result = Bun.spawnSync(command, { cwd, stdout: "pipe", stderr: "pipe", timeout })
   if (result.exitCode !== 0) {
     throw new Error(`${command.join(" ")} failed:\n${result.stdout.toString()}${result.stderr.toString()}`)
   }
@@ -27,7 +27,7 @@ try {
       overrides: { "circuit-json": `file:${resolve(process.env.CIRCUIT_JSON_TARBALL)}` },
     } : {}),
   }))
-  await run([process.execPath, "install", "--production"], consumer)
+  await run(["npm", "install", "--omit=dev", "--ignore-scripts", "--no-audit", "--no-fund"], consumer, 180_000)
   const entrypoint = join(consumer, "consumer.ts")
   await writeFile(entrypoint, 'import * as noise from "simulate-pcb-noise"\nif (!Object.keys(noise).length) throw new Error("No public exports")\n')
   const bundle = await Bun.build({ entrypoints: [entrypoint], target: "browser" })
