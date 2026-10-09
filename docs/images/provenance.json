@@ -1,0 +1,128 @@
+{
+  "format": "pcb_noise_readme_image_provenance_v1",
+  "image_processing": "Byte-identical copies of previously generated and independently reviewed simulation figures; no image editing.",
+  "demo_source": {
+    "repository": "https://github.com/tscircuit/return-current-trace-demo",
+    "commit": "4c32e522f1568c0bde5f566f494e55599e7e6e18",
+    "directory": "examples/circuit-json/two-line-pcb-noise"
+  },
+  "archive": {
+    "filename": "pcb-noise-verified-demo.zip",
+    "sha256": "92a696e579db193dfbaa38eaac19a503fadc40ca591be564693497cd34422eb6",
+    "root": "pcb-noise-verified-demo"
+  },
+  "public_package_sources": {
+    "@tscircuit/core": "https://pkg.pr.new/@tscircuit/core@e4edc8b689ecb6a0aa6f5495be1e83d245fdc463",
+    "@tscircuit/props": "https://pkg.pr.new/@tscircuit/props@9f7a3088217ce32edcfe5f4c19b3163bff08e395",
+    "circuit-json": "https://pkg.pr.new/circuit-json@6c41978a11b31fa91dafa57b613d505b65c2b1f8",
+    "circuit-to-svg": "https://pkg.pr.new/circuit-to-svg@62c2d7573d8478ba5b3f14da144e94bfb9432390",
+    "simulate-pcb-noise": "https://pkg.pr.new/tscircuit/simulate-pcb-noise@1c6b322fb548b78116fb60e19d887ad7399774f7"
+  },
+  "capture": {
+    "duration_ns": 192,
+    "sample_interval_ps": 5,
+    "samples_per_observation": 38401,
+    "baud_mbaud": 500,
+    "prbs_order": 7,
+    "edge_10_90_ps": 600,
+    "complete_eye_windows": 94,
+    "threshold_crossings": 45,
+    "timing_modes": [
+      "known_ui",
+      "nominal_authored_source_clock"
+    ],
+    "baseline_eye_status": "supplementary analysis of the paired baseline waveform"
+  },
+  "model": {
+    "kind": "bounded two-trace quasi-TEM microstrip over ideal continuous ground",
+    "trace_length_mm": 20,
+    "trace_width_mm": 0.3,
+    "edge_gap_mm": 0.3,
+    "dielectric_thickness_mm": 0.2,
+    "relative_permittivity": 4.2,
+    "copper_thickness_mm": 0.035,
+    "copper_conductivity_s_per_m": 58000000,
+    "ground_impedance": "ideal",
+    "limits": "Finite-capture numerical simulation; no recovered-clock, BER or calibrated hardware claim."
+  },
+  "images": [
+    {
+      "file": "receiver-eye-comparison.png",
+      "byte_length": 225913,
+      "sha256": "3b803d377f845a5a66bcdb0e8957fd2b77deae340fcddbd3c3a09f349acc85b0",
+      "size_pixels": [
+        2040,
+        1445
+      ],
+      "source_archive_entry": "runs/figures/qualified-pcb-noise-eye-comparison.png",
+      "source_data_entries": [
+        "runs/active/run/eye-5.json",
+        "runs/active-clock/run/eye-5.json",
+        "runs/active/baseline-eye.json",
+        "runs/active-clock/baseline-eye.json"
+      ],
+      "caption": "Official total receiver eyes above; supplementary quiet-aggressor baseline eyes below. Known UI and nominal authored source clock give equal bins for this finite capture."
+    },
+    {
+      "file": "receiver-eye-crossing-zoom.png",
+      "byte_length": 250651,
+      "sha256": "b357bbb910db212f96a48ccc49972637ee18b7546d7cc5eac1eac844688c5839",
+      "size_pixels": [
+        2040,
+        986
+      ],
+      "source_archive_entry": "runs/figures/qualified-pcb-noise-crossing-zoom.png",
+      "source_data_entries": [
+        "runs/active/run/waveform-5-total.json",
+        "runs/active/run/waveform-5-baseline.json"
+      ],
+      "caption": "Raw sample connections around 45 receiver threshold crossings using fixed known-UI timing. Curves retain propagation delay; the scalar spread removes its mean."
+    },
+    {
+      "file": "victim-waveform-comparison.png",
+      "byte_length": 305641,
+      "sha256": "70e55fc601d335d34e89067baeedb59789f3bf7133f0b4498e540b0a967df5c3",
+      "size_pixels": [
+        2040,
+        1632
+      ],
+      "source_archive_entry": "runs/figures/qualified-pcb-noise-comparison.png",
+      "source_data_entries": [
+        "runs/quiet/run/waveform-4-total.json",
+        "runs/quiet/run/waveform-5-total.json",
+        "runs/active/run/waveform-5-total.json",
+        "runs/active/run/waveform-5-baseline.json",
+        "runs/active/run/waveform-5-difference.json",
+        "runs/quiet-100ohm/run/waveform-5-total.json"
+      ],
+      "caption": "Near- and far-end induced voltage, active receiver with paired baseline, total-minus-baseline, and 50/100 ohm victim load comparison. First 32 ns displayed; full 192 ns capture used for metrics."
+    },
+    {
+      "file": "two-line-pcb-ports.png",
+      "byte_length": 5764,
+      "sha256": "92647cf5d6bc3a98ca957889bd80040ddf93d3592734d1b3c10a62ddb127f33f",
+      "size_pixels": [
+        1000,
+        440
+      ],
+      "source_archive_entry": "runs/active/pcb-ports.png",
+      "source_data_entries": [
+        "runs/active/input.circuit.json"
+      ],
+      "caption": "Actual top-layer two-trace PCB render, with the victim receiver signal contact highlighted. The ideal ground reference is a separate bottom layer."
+    }
+  ],
+  "source_data_sha256": {
+    "runs/active/run/eye-5.json": "a6f8f4e55e00b72940abc597f8ee03db4a59b1185524da0fc3e55d049d1d1c6c",
+    "runs/active-clock/run/eye-5.json": "fe3781ba3982fcd1c0c4ca2d3049b7b60a81426e580b883f4140a87d9d79e2d1",
+    "runs/active/baseline-eye.json": "b3365c88e8be8811a8b050d04bc5208ab1e58d1545cd9aa55452b9c0b9831748",
+    "runs/active-clock/baseline-eye.json": "acfab88eb3b2967d27d6f78e148a3c80b7ed50df22ea1136407416276b08f704",
+    "runs/active/run/waveform-5-total.json": "c9d5043ad5e84c8e91aeaef80893a49b36e74cfd8c769b3fc98761669ccb9775",
+    "runs/active/run/waveform-5-baseline.json": "a722fdaec1e3200f8384ae54592dad192121e9c82bf155f89007f8e567e1b9aa",
+    "runs/quiet/run/waveform-4-total.json": "84e0c273576ac813b42fd152809531b5342938faebd8ef0e36e2773f28e31582",
+    "runs/quiet/run/waveform-5-total.json": "810d4cdabe3a1a8db52a7d341d4b644d84090bb99b08f1c5c57db6325f86d23d",
+    "runs/active/run/waveform-5-difference.json": "47b4a78c75858d73a3851496b86a9517cf53bba1547e0a1f83fb10bfca1e477f",
+    "runs/quiet-100ohm/run/waveform-5-total.json": "2c05e74ab9bf73437c797ca8d62f78e4c3277299d5d84e998b2a34923d4fe48b",
+    "runs/active/input.circuit.json": "fed59d72c63c276e90e337b39a43fb81967301ffd5f5073db0375a5ed8d1a16e"
+  }
+}
