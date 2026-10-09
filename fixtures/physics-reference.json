@@ -1,0 +1,20 @@
+{
+  "description": "Synthetic lossless symmetric coupled transmission lines. Reference solves the two scalar even/odd transmission-line equations by independently summing delayed traveling and reflected waves; it does not reuse the method-of-lines discretization.",
+  "units": { "length": "m", "L": "H/m", "C": "F/m", "R": "ohm", "time": "s", "voltage": "V" },
+  "length_m": 0.1,
+  "self_inductance_h_per_m": 2.5e-7,
+  "mutual_inductance_h_per_m": 4e-8,
+  "self_capacitance_f_per_m": 1e-10,
+  "mutual_capacitance_f_per_m": -1e-11,
+  "source_resistance_ohms": 50,
+  "timing_tolerance_unit_interval_s": 1e-9,
+  "load_resistances_ohms": [50, 100],
+  "source_waveform": [[0, 0], [1e-10, 0], [5e-10, 1], [2e-9, 1], [2.4e-9, 0], [6e-9, 0]],
+  "modal_reference": {
+    "even_impedance_ohms": 56.764621219754675,
+    "odd_impedance_ohms": 43.69314487526515,
+    "even_delay_s": 5.108816E-10,
+    "odd_delay_s": 4.806245936279167E-10
+  },
+  "scope": "Verifies synthetic RLGC numerical propagation, not PCB geometry extraction, finite copper, arbitrary layout or native Maxwell accuracy."
+}
