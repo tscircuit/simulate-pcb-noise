@@ -137,12 +137,29 @@ export function thresholdCrossings(
   if (!finite(threshold)) throw new Error("Crossing threshold must be finite")
   const times = waveformTimes(waveform)
   const edges: { time_s: number; polarity: "rising" | "falling" }[] = []
+  const valid = (a: number, b: number) => waveform.valid_intervals_s.some((range) => times[a]! >= range.start_s && times[b]! <= range.end_s)
   for (let i = 1; i < times.length; i++) {
-    if (!waveform.valid_intervals_s.some((range) => times[i - 1]! >= range.start_s && times[i]! <= range.end_s)) continue
+    if (!valid(i - 1, i)) continue
     const before = waveform.values[i - 1]!
     const after = waveform.values[i]!
-    const direction = before < threshold && after >= threshold ? "rising"
-      : before >= threshold && after < threshold ? "falling" : undefined
+    if (after === threshold) {
+      // An exact landing is a crossing only when the signal straddles the
+      // threshold; a tangent touch or reversal never crosses. Look past the
+      // run of exact-threshold samples to the first sample that differs.
+      if (before === threshold) continue
+      let end = i
+      while (end + 1 < times.length && valid(end, end + 1) && waveform.values[end + 1]! === threshold) end++
+      if (end + 1 >= times.length || !valid(end, end + 1)) continue
+      const beyond = waveform.values[end + 1]!
+      const direction = before < threshold && beyond > threshold ? "rising"
+        : before > threshold && beyond < threshold ? "falling" : undefined
+      if (direction && (polarity === "both" || polarity === direction)) {
+        edges.push({ time_s: times[i]!, polarity: direction })
+      }
+      continue
+    }
+    const direction = before < threshold && after > threshold ? "rising"
+      : before > threshold && after < threshold ? "falling" : undefined
     if (direction && (polarity === "both" || polarity === direction)) {
       edges.push({ time_s: times[i - 1]! + (threshold - before) * (times[i]! - times[i - 1]!) / (after - before), polarity: direction })
     }
